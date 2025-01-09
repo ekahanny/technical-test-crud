@@ -1,7 +1,10 @@
-export function Home(){
-    return (
-        <div>
-            <p>Ini halaman home</p>
-        </div>
-    )
+import NavBar from "../components/NavBar";
+
+export function Home() {
+  return (
+    <div>
+      <NavBar />
+      {/* <p>Ini halaman home</p> */}
+    </div>
+  );
 }
