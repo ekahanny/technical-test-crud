@@ -5,16 +5,44 @@ import { ShowData } from "../components/ShowData";
 import bgImage from "../assets/background.jpg";
 
 export function Home() {
-  const [student, setStudent] = useState({
+  const [contacts, setContacts] = useState({
     data: [],
     currentData: {
-      nama: "",
-      nim: "",
-      prodi: "",
-      fakultas: "",
-      universitas: "",
+      contactName: "",
+      phoneNumber: "",
+      contactEmail: "",
     },
   });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setContacts((prevData) => {
+      return {
+        ...prevData,
+        currentData: {
+          ...prevData.currentData,
+          [name]: value,
+        },
+      };
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    setContacts((prevData) => {
+      console.log("previous contact: ", prevData);
+      return {
+        data: [...prevData.data, prevData.currentData],
+        currentData: {
+          contactName: "",
+          phoneNumber: "",
+          contactEmail: "",
+        },
+      };
+    });
+    console.log("contact : ", contacts);
+  };
   return (
     <div>
       <NavBar />
@@ -32,24 +60,30 @@ export function Home() {
           <h1 className="text-3xl font-semibold text-white text-center mb-7 mt-3">
             ADD CONTACT
           </h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <InputField
               name="contactName"
               type="text"
               placeholder="Add Contact Name"
               label="Contact Name"
+              value={contacts.currentData.contactName}
+              onChange={handleChange}
             />
             <InputField
               name="phoneNumber"
               type="text"
               placeholder="Add Phone Number"
               label="Phone Number"
+              value={contacts.currentData.phoneNumber}
+              onChange={handleChange}
             />
             <InputField
               name="contactEmail"
               type="email"
               placeholder="Add Contact Email"
               label="Contact Email"
+              value={contacts.currentData.contactEmail}
+              onChange={handleChange}
             />
             <div className="flex justify-center items-center">
               <button
@@ -64,7 +98,18 @@ export function Home() {
         {/* <hr className="border-t-4 border-cyan-900 w-full my-12" /> */}
 
         {/* Hasil Data */}
-        <div></div>
+        {contacts.data.length > 0 && (
+          <div className="w-11/12 lg:w-7/12 bg-gray-900 p-8 mt-8 lg:mt-12 rounded-lg border-2 border-sky-800 bg-opacity-80">
+            {contacts.data.map((contact, index) => (
+              <ShowData
+                key={index}
+                contactName={contact.contactName}
+                phoneNumber={contact.phoneNumber}
+                contactEmail={contact.contactEmail}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
