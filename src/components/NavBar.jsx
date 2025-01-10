@@ -27,15 +27,15 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="bg-gray-800 text-white">
+    <div className="bg-cyan-700 text-white">
       <div className="container mx-auto flex items-center justify-between lg:px-5 pr-3 pl-4 py-2">
-        <div className="text-lg font-bold">CRUD APP</div>
-        <div className="relative">
+        <div className="text-2xl font-bold">CRUD APP</div>
+        <div className="relative py-3">
           {/* Tombol Dropdown */}
           <button
             id="dropdownButton"
             onClick={toggleDropdown}
-            className="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center"
+            className="px-4 py-2 border rounded hover:bg-cyan-600 flex items-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
