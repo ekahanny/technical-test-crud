@@ -7,7 +7,13 @@ export function Login() {
     username: "",
     password: "",
   });
+
   const navigate = useNavigate();
+
+  const AUTH_CREDENTIALS = {
+    username: "admin",
+    password: "admin123",
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,15 +25,23 @@ export function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUsers({
-      username: "",
-      password: "",
-    });
-    setTimeout(() => {
-      localStorage.setItem("users", JSON.stringify(users));
-      navigate("/home");
-    }, 1000);
+
+    if (
+      users.username === AUTH_CREDENTIALS.username &&
+      users.password === AUTH_CREDENTIALS.password
+    ) {
+      setTimeout(() => {
+        localStorage.setItem(
+          "users",
+          JSON.stringify({ username: users.username })
+        );
+        navigate("/home");
+      }, 1000);
+    } else {
+      alert("Invalid username or password!");
+    }
   };
+
   return (
     <div
       className="flex justify-center items-center flex-col min-h-screen"

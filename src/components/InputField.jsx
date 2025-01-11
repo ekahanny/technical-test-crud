@@ -16,6 +16,7 @@ export const InputField = (props) => {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        required
       />
     </div>
   );
