@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputField } from "../components/InputField";
 import NavBar from "../components/NavBar";
 import { ShowData } from "../components/ShowData";
@@ -16,6 +16,22 @@ export function Home() {
 
   const [isEdit, setIsEdit] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
+
+  // Ambil data dari localStorage saat komponen diload
+  useEffect(() => {
+    const storedContacts = localStorage.getItem("contacts");
+    if (storedContacts) {
+      setContacts((prev) => ({
+        ...prev,
+        data: JSON.parse(storedContacts),
+      }));
+    }
+  }, []);
+
+  // Simpan data ke localStorage setiap kali data berubah
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts.data));
+  }, [contacts.data]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
