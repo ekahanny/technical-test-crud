@@ -1,10 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router"; // Perbaiki impor
 import { Login } from "./pages/Login.jsx";
 import { Home } from "./pages/Home.jsx";
 import { Profile } from "./pages/Profile.jsx";
+import PrivateRoute from "./components/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -13,11 +14,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home />,
+    element: <PrivateRoute element={<Home />} />, // Gunakan komponen PrivateRoute di sini
   },
   {
     path: "/profile",
-    element: <Profile />,
+    element: <PrivateRoute element={<Profile />} />, // Gunakan komponen PrivateRoute di sini
   },
 ]);
 
