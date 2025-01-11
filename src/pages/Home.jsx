@@ -16,6 +16,7 @@ export function Home() {
 
   const [isEdit, setIsEdit] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const storedContacts = localStorage.getItem("contacts");
@@ -96,6 +97,13 @@ export function Home() {
     }));
   };
 
+  const filteredContacts = contacts.data.filter(
+    (contact) =>
+      contact.contactName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      contact.phoneNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      contact.contactEmail.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div>
       <NavBar />
@@ -149,15 +157,26 @@ export function Home() {
           </form>
         </div>
 
+        {/* Search Bar */}
+        <div className="w-10/12 lg:w-6/12 mt-10">
+          <input
+            type="text"
+            className="w-full p-3 text-lg rounded-md border-2 border-cyan-700 focus:outline-none"
+            placeholder="Search contacts..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
         {/* Tampilkan Data */}
-        {contacts.data.length > 0 && (
-          <div className="w-11/12 lg:w-6/12 my-10">
-            {contacts.data.map((contact, index) => (
+        {filteredContacts.length > 0 && (
+          <div className="w-11/12 lg:w-6/12 mt-5 mb-10">
+            {filteredContacts.map((contact, index) => (
               <div
                 key={index}
                 className=" pt-4 pb-6 pr-5 pl-8 lg:pl-16 bg-gray-900 mb-3 lg:mb-5 rounded-lg border-2 border-sky-800 bg-opacity-80"
               >
-                <div key={index} className="mb-4">
+                <div className="mb-4">
                   <div className="flex flex-row justify-between items-center">
                     <ShowData
                       contactName={contact.contactName}
